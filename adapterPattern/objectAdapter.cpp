@@ -45,31 +45,41 @@ public:
 };
 
 // Adapter
-class TextShape : public Shape, private TextView
+class TextShape : public Shape
 {
 public:
-	TextShape();
+	TextShape(const TextView *);
 	virtual void BoundingBox(
 			Point &bottomLeft, Point &topRight) const;
 	virtual bool IsEmpty() const;
 	virtual Manipulator *CreateManipulator() const;
+
+private:
+	const TextView *_text;
 };
 
-// Convert TextView's interface to conform to Shape's
+// Constructor initialization hold reference to the adaptee instance
+TextShape::TextShape(const TextView *textView)
+{
+	_text = textView;
+}
+
 void TextShape::BoundingBox(
 		Point &bottomLeft, Point &topRight) const
 {
 	Coord bottom, left, width, height;
-	GetOrigin(bottom, left);
-	GetExtent(width, height);
+	// Call adaptee's operations
+	_text->GetOrigin(bottom, left);
+	_text->GetExtent(width, height);
 	bottomLeft = Point(bottom, left);
 	topRight = Point(bottom + height, left + width);
-};
+}
 
-// Forward the request to the adpatee
 bool TextShape::IsEmpty() const
 {
-	return TextView::IsEmpty();
+
+	// Forward the request to the adpatee
+	return _text->IsEmpty();
 }
 
 Manipulator *TextShape::CreateManipulator() const
