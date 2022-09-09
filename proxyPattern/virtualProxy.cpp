@@ -8,9 +8,40 @@ class Event
 class Point
 {
 public:
+	Point(int lat, int lng);
 	Point();
-	static Point *Zero;
+	static Point Zero;
+
+	Point &operator=(const Point &point);
+	bool operator==(const Point &point);
+
+private:
+	int _lat;
+	int _lng;
 };
+
+Point::Point(int lat, int lnt)
+{
+	_lat = lat;
+	_lng = lnt;
+}
+Point Point::Zero = Point(0, 0);
+Point &Point::operator=(const Point &point)
+{
+	_lat = point._lat;
+	_lng = point._lng;
+	// Return the existing object for operator chaining
+	return *this;
+}
+bool Point::operator==(const Point &point)
+{
+	if (point._lat == _lat && point._lng == _lng)
+	{
+		return true;
+	}
+	else
+		return false;
+}
 
 // Subject
 class Graphic
@@ -75,7 +106,7 @@ ImageProxy::ImageProxy(const char *fileName)
 {
 	// Copy fileName
 	_fileName = strdup(fileName);
-	_extent = Point();
+	_extent = Point::Zero;
 	_image = 0;
 }
 
@@ -92,7 +123,10 @@ Image *ImageProxy::GetImage()
 const Point &ImageProxy::GetExtent()
 {
 	// if extent is not set
-	_extent = GetImage()->GetExtent();
+	if (_extent == Point::Zero)
+	{
+		_extent = GetImage()->GetExtent();
+	}
 
 	// otherwise return cached extent
 	return _extent;
