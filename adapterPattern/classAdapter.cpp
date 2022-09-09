@@ -1,3 +1,4 @@
+// This code example is not complete, don't learn C++ from this
 class Point
 {
 public:

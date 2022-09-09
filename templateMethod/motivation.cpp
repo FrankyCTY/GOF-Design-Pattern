@@ -48,6 +48,7 @@ void Application::OpenDocument(const char *name)
 	{
 		_docs->AddDocument(doc);
 		AboutToOpenDocument(doc);
+		// (*doc).Open()
 		doc->Open();
 		doc->DoRead();
 	}

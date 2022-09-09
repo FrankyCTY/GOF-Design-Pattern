@@ -35,12 +35,7 @@ Point &Point::operator=(const Point &point)
 }
 bool Point::operator==(const Point &point)
 {
-	if (point._lat == _lat && point._lng == _lng)
-	{
-		return true;
-	}
-	else
-		return false;
+	return point._lat == _lat && point._lng == _lng;
 }
 
 // Subject
