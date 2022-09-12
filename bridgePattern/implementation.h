@@ -23,7 +23,7 @@ class XWindowImp : public WindowImp
 public:
 	XWindowImp();
 
-	virtual void DeviceRect(Coord, Coord, Coord, Coord);
+	void DeviceRect(Coord, Coord, Coord, Coord);
 	// ...
 private:
 	Display *_dpy;
@@ -36,7 +36,7 @@ class PMWindowImp : public WindowImp
 {
 public:
 	PMWindowImp();
-	virtual void DeviceRect(Coord, Coord, Coord, Coord);
+	void DeviceRect(Coord, Coord, Coord, Coord);
 	// ...
 private:
 	HPS _hps;
