@@ -1,12 +1,37 @@
+#include <iostream>
+
 class View
 {
 public:
 	void DrawOn(Window *w);
 };
 
+class Coord
+{
+public:
+	Coord(double coord);
+};
+
 class Point
 {
+public:
+	static Coord X();
+	static Coord Y();
+
+private:
+	static Coord x;
+	static Coord y;
 };
+
+Coord Point::X()
+{
+	return x;
+}
+
+Coord Point::Y()
+{
+	return y;
+}
 
 class Display
 {
@@ -24,10 +49,61 @@ class HPS
 {
 };
 
-class Coord
+// Implementation
+class WindowImp
 {
+public:
+	virtual void ImpTop() = 0;
+	virtual void ImpBottom() = 0;
+	virtual void ImpSetExtent(const Point &) = 0;
+	virtual void ImpSetOrigin(const Point &) = 0;
+	virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
+	virtual void DeviceText(const char *, Coord, Coord) = 0;
+	virtual void DeviceBitmap(const char *, Coord, Coord) = 0;
+	// lots more functions for drawing on windows...
+protected:
+	WindowImp();
 };
 
+// Concrete Implementation
+class XWindowImp : public WindowImp
+{
+public:
+	XWindowImp();
+
+	virtual void DeviceRect(Coord, Coord, Coord, Coord);
+	// remainder of public interface...
+private:
+	Display *_dpy;
+	Drawable _windowId;
+	GC _gc;
+};
+
+void XWindowImp::DeviceRect(
+		Coord xO, Coord yO, Coord xl, Coord yl)
+{
+	std::cout << "..." << std::endl;
+}
+
+// Concrete Implementation
+class PMWindowImp : public WindowImp
+{
+public:
+	PMWindowImp();
+	virtual void DeviceRect(Coord, Coord, Coord, Coord);
+	// remainder of public interface...
+private:
+	// lots of PM window system-specific state, including:
+	HPS _hps;
+};
+
+void PMWindowImp::DeviceRect(
+		Coord xO, Coord yO, Coord xl, Coord yl)
+{
+	std::cout << "..." << std::endl;
+}
+
+// Abstraction
 class Window
 {
 public:
@@ -51,6 +127,7 @@ public:
 	virtual void DrawText(const char *, const Point &);
 
 protected:
+	// Implementation is hidden from client
 	WindowImp *GetWindowImp();
 	View *GetView();
 
@@ -61,34 +138,19 @@ private:
 
 WindowImp *Window::GetWindowImp()
 {
-	if (_imp == 0)
-	{
-		// Factory method (static)
-		// _imp = WindowSystemFactory::Instance()->MakeWindowImp();
-	}
+	// if (_imp == 0)
+	// {
+	// 	// Factory method (static)
+	// 	// _imp = WindowSystemFactory::Instance()->MakeWindowImp();
+	// }
 	return _imp;
 }
 
 void Window::DrawRect(const Point &p1, const Point &p2)
 {
 	WindowImp *imp = GetWindowImp();
-	imp->DeviceRect(p1.X(), pl.Y(), p2.X(), p2.Y());
+	imp->DeviceRect(p1.X(), p1.Y(), p2.X(), p2.Y());
 }
-
-class WindowImp
-{
-public:
-	virtual void ImpTop() = 0;
-	virtual void ImpBottom() = 0;
-	virtual void ImpSetExtent(const Point &) = 0;
-	virtual void ImpSetOrigin(const Point &) = 0;
-	virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
-	virtual void DeviceText(const char *, Coord, Coord) = 0;
-	virtual void DeviceBitmap(const char *, Coord, Coord) = 0;
-	// lots more functions for drawing on windows...
-protected:
-	WindowImp();
-};
 
 class ApplicationWindow : public Window
 {
@@ -97,6 +159,7 @@ public:
 	virtual void DrawContents();
 };
 
+// Refined Abstraction
 void ApplicationWindow::DrawContents()
 {
 	GetView()->DrawOn(this);
@@ -112,6 +175,7 @@ private:
 	const char *_bitmapName;
 };
 
+// Refined Abstraction
 void IconWindow::DrawContents()
 {
 	WindowImp *imp = GetWindowImp();
@@ -119,56 +183,4 @@ void IconWindow::DrawContents()
 	{
 		imp->DeviceBitmap(_bitmapName, 0.0, 0.0);
 	}
-}
-
-class WindowImp
-{
-public:
-	virtual void ImpTop() = 0;
-	virtual void ImpBottom() = 0;
-	virtual void ImpSetExtent(const Point &) = 0;
-	virtual void ImpSetOrigin(const Point &) = 0;
-	virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
-	virtual void DeviceText(const char *, Coord, Coord) = 0;
-	virtual void DeviceBitmap(const char *, Coord, Coord) = 0;
-	// lots more functions for drawing on windows...
-protected:
-	WindowImp();
-};
-
-class XWindowImp : public WindowImp
-{
-public:
-	XWindowImp();
-
-	virtual void DeviceRect(Coord, Coord, Coord, Coord);
-	// remainder of public interface...
-private:
-	// lots of X window system-specific state, including:
-	Display *_dpy;
-	Drawable _winid; // window id
-	GC _gc;					 // window graphic context
-};
-
-class PMWindowImp : public WindowImp
-{
-public:
-	PMWindowImp();
-	virtual void DeviceRect(Coord, Coord, Coord, Coord);
-	// remainder of public interface...
-private:
-	// lots of PM window system-specific state, including:
-	HPS _hps;
-};
-
-void PMWindowImp::DeviceRect(
-		Coord xO, Coord yO, Coord xl, Coord yl)
-{
-	//...
-}
-
-void XWindowImp::DeviceRect(
-		Coord xO, Coord yO, Coord xl, Coord yl)
-{
-	//...
 }
