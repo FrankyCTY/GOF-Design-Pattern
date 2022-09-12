@@ -5,7 +5,7 @@
 class Decorator : public VisualComponent
 {
 public:
-	Decorator(VisualComponent *);
+	explicit Decorator(VisualComponent *);
 	virtual void Draw();
 	virtual void Resize();
 	// . . -
@@ -17,7 +17,7 @@ private:
 class BorderDecorator : public Decorator
 {
 public:
-	BorderDecorator(VisualComponent *, int borderWidth);
+	explicit BorderDecorator(VisualComponent *, int borderWidth);
 	virtual void Draw();
 
 private:

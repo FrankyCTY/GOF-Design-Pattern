@@ -6,7 +6,7 @@
 class ImageProxy : public Graphic
 {
 public:
-	ImageProxy(const char *imageFile);
+	explicit ImageProxy(const char *imageFile);
 	virtual ~ImageProxy();
 
 	virtual void Draw(const Point &at);

@@ -5,6 +5,7 @@
 class WindowImp
 {
 public:
+	explicit WindowImp();
 	virtual void ImpTop() = 0;
 	virtual void ImpBottom() = 0;
 	virtual void ImpSetExtent(const Point &) = 0;
@@ -12,16 +13,13 @@ public:
 	virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
 	virtual void DeviceText(const char *, Coord, Coord) = 0;
 	virtual void DeviceBitmap(const char *, Coord, Coord) = 0;
-	// ...
-protected:
-	WindowImp();
 };
 
 // Concrete Implementation
 class XWindowImp : public WindowImp
 {
 public:
-	XWindowImp();
+	explicit XWindowImp();
 
 	void DeviceRect(Coord, Coord, Coord, Coord);
 	// ...
@@ -35,7 +33,7 @@ private:
 class PMWindowImp : public WindowImp
 {
 public:
-	PMWindowImp();
+	explicit PMWindowImp();
 	void DeviceRect(Coord, Coord, Coord, Coord);
 	// ...
 private:

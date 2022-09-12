@@ -23,7 +23,7 @@ protected:
 class Image : public Graphic
 {
 public:
-	Image(const char *file); // loads image from a file
+	explicit Image(const char *file); // loads image from a file
 	virtual ~Image();
 
 	void Draw(const Point &at);

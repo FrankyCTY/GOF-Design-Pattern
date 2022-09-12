@@ -5,7 +5,7 @@
 class Composition
 {
 public:
-	Composition(Compositor *);
+	explicit Composition(Compositor *);
 	void Repair();
 
 private:

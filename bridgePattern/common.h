@@ -3,7 +3,7 @@
 class Coord
 {
 public:
-	Coord(double coord);
+	explicit Coord(double coord);
 };
 
 class Point

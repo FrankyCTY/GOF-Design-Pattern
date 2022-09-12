@@ -7,7 +7,7 @@ class Event
 class Point
 {
 public:
-	Point(int lat, int lng);
+	explicit Point(int lat, int lng);
 	Point();
 	static Point Zero;
 

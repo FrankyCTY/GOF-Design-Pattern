@@ -2,7 +2,7 @@
 class Point
 {
 public:
-	Point(Coord lon, Coord lat);
+	explicit Point(Coord lon, Coord lat);
 };
 
 // Can animate a shape when user manipulates it
@@ -13,7 +13,7 @@ class Manipulator
 class TextManipulator : public Manipulator
 {
 public:
-	TextManipulator(const TextShape *);
+	explicit TextManipulator(const TextShape *);
 };
 
 class Coord
