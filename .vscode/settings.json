@@ -1,4 +1,5 @@
 {
+  "omnisharp.autoStart": true,
   "files.associations": {
     "vector": "cpp",
     "array": "cpp",

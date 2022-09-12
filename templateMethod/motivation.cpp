@@ -19,6 +19,7 @@ public:
 	}
 };
 
+// Abstract class
 class Application
 {
 
@@ -34,7 +35,7 @@ public:
 	void AboutToOpenDocument(Document *doc);
 };
 
-// Invariants encapsulated
+// Template method - Invariants encapsulated
 void Application::OpenDocument(const char *name)
 {
 	if (!CanOpenDocument(name))
