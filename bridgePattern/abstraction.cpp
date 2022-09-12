@@ -1,3 +1,5 @@
+#include "common.h"
+#include "implementation.h"
 #include <iostream>
 
 class View
@@ -5,103 +7,6 @@ class View
 public:
 	void DrawOn(Window *w);
 };
-
-class Coord
-{
-public:
-	Coord(double coord);
-};
-
-class Point
-{
-public:
-	static Coord X();
-	static Coord Y();
-
-private:
-	static Coord x;
-	static Coord y;
-};
-
-Coord Point::X()
-{
-	return x;
-}
-
-Coord Point::Y()
-{
-	return y;
-}
-
-class Display
-{
-};
-
-class Drawable
-{
-};
-
-class GC
-{
-};
-
-class HPS
-{
-};
-
-// Implementation
-class WindowImp
-{
-public:
-	virtual void ImpTop() = 0;
-	virtual void ImpBottom() = 0;
-	virtual void ImpSetExtent(const Point &) = 0;
-	virtual void ImpSetOrigin(const Point &) = 0;
-	virtual void DeviceRect(Coord, Coord, Coord, Coord) = 0;
-	virtual void DeviceText(const char *, Coord, Coord) = 0;
-	virtual void DeviceBitmap(const char *, Coord, Coord) = 0;
-	// lots more functions for drawing on windows...
-protected:
-	WindowImp();
-};
-
-// Concrete Implementation
-class XWindowImp : public WindowImp
-{
-public:
-	XWindowImp();
-
-	virtual void DeviceRect(Coord, Coord, Coord, Coord);
-	// remainder of public interface...
-private:
-	Display *_dpy;
-	Drawable _windowId;
-	GC _gc;
-};
-
-void XWindowImp::DeviceRect(
-		Coord xO, Coord yO, Coord xl, Coord yl)
-{
-	std::cout << "..." << std::endl;
-}
-
-// Concrete Implementation
-class PMWindowImp : public WindowImp
-{
-public:
-	PMWindowImp();
-	virtual void DeviceRect(Coord, Coord, Coord, Coord);
-	// remainder of public interface...
-private:
-	// lots of PM window system-specific state, including:
-	HPS _hps;
-};
-
-void PMWindowImp::DeviceRect(
-		Coord xO, Coord yO, Coord xl, Coord yl)
-{
-	std::cout << "..." << std::endl;
-}
 
 // Abstraction
 class Window
@@ -133,7 +38,7 @@ protected:
 
 private:
 	WindowImp *_imp;
-	View *_contents; // the window's contents
+	View *_contents;
 };
 
 WindowImp *Window::GetWindowImp()
@@ -168,7 +73,7 @@ void ApplicationWindow::DrawContents()
 class IconWindow : public Window
 {
 public:
-	// . . .
+	// ...
 	virtual void DrawContents();
 
 private:
