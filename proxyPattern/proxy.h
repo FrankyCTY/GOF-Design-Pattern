@@ -22,5 +22,6 @@ protected:
 private:
 	Image *_image;
 	Point _extent;
+	// Keep soft reference (not actual object) to file
 	char *_fileName;
 };
