@@ -1,78 +1,52 @@
-class Point
-{
-public:
-	Point(Coord lon, Coord lat);
-};
+#include <iostream>
+#include "./common.h"
 
-// Can animate a shape when user manipulates it
-class Manipulator
-{
-};
-
-class TextManipulator : public Manipulator
-{
-public:
-	TextManipulator(const TextShape *);
-};
-
-class Coord
-{
-	friend Coord operator+(Coord &a, Coord &b)
-	{
-		return a + b;
-	}
-};
-
-// Adaptee
+// =============== Adaptee ===============
 class TextView
 {
 public:
-	TextView();
+	explicit TextView();
 	void GetOrigin(Coord &x, Coord &y) const;
-	void GetExtent(Coord &width, Coord &height) const;
 	virtual bool IsEmpty() const;
 };
 
-// Target
+// =============== Target ===============
 class Shape
 {
 public:
-	Shape();
+	explicit Shape();
 	virtual void BoundingBox(
 			Point &bottomLeft, Point &topRight) const;
 
-	virtual Manipulator *CreateManipulator() const;
+	virtual void OtherMethod() const;
 };
 
-// Adapter
+// =============== Adapter ===============
 class TextShape : public Shape
 {
 public:
-	TextShape(const TextView *);
-	virtual void BoundingBox(
+	explicit TextShape(const TextView *);
+	void BoundingBox(
 			Point &bottomLeft, Point &topRight) const;
-	virtual bool IsEmpty() const;
-	virtual Manipulator *CreateManipulator() const;
+	bool IsEmpty() const;
+	void OtherMethod() const;
 
 private:
 	const TextView *_text;
 };
 
-// Constructor initialization hold reference to the adaptee instance
 TextShape::TextShape(const TextView *textView)
 {
 	_text = textView;
 }
 
+// Convert TextView's interface to conform to Shape's interface
 void TextShape::BoundingBox(
 		Point &bottomLeft, Point &topRight) const
 {
 	Coord bottom, left, width, height;
-	// Call adaptee's operations
 	_text->GetOrigin(bottom, left);
-	_text->GetExtent(width, height);
-	bottomLeft = Point(bottom, left);
-	topRight = Point(bottom + height, left + width);
+	// ...
 }
 
 bool TextShape::IsEmpty() const
@@ -82,7 +56,7 @@ bool TextShape::IsEmpty() const
 	return _text->IsEmpty();
 }
 
-Manipulator *TextShape::CreateManipulator() const
+void TextShape::OtherMethod() const
 {
-	return new TextManipulator(this);
+	std::cout << "Method that not supported by adaptee" << std::endl;
 }

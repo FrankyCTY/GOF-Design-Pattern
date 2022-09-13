@@ -1,70 +1,44 @@
+#include <iostream>
+#include "./common.h"
 // This code example is not complete, don't learn C++ from this
-class Point
-{
-public:
-	explicit Point(Coord lon, Coord lat);
-};
 
-// Can animate a shape when user manipulates it
-class Manipulator
-{
-};
-
-class TextManipulator : public Manipulator
-{
-public:
-	explicit TextManipulator(const TextShape *);
-};
-
-class Coord
-{
-	friend Coord operator+(Coord &a, Coord &b)
-	{
-		return a + b;
-	}
-};
-
-// Adaptee
+// =============== Adaptee ===============
 class TextView
 {
 public:
-	TextView();
+	explicit TextView();
 	void GetOrigin(Coord &x, Coord &y) const;
-	void GetExtent(Coord &width, Coord &height) const;
 	virtual bool IsEmpty() const;
 };
 
-// Target
+// =============== Target ===============
 class Shape
 {
 public:
-	Shape();
+	explicit Shape();
 	virtual void BoundingBox(
 			Point &bottomLeft, Point &topRight) const;
-
-	virtual Manipulator *CreateManipulator() const;
+	virtual void OtherMethod() const;
 };
 
-// Adapter
+// =============== Adapter ===============
 class TextShape : public Shape, private TextView
 {
 public:
-	TextShape();
-	virtual void BoundingBox(
+	explicit TextShape();
+	void BoundingBox(
 			Point &bottomLeft, Point &topRight) const;
-	virtual bool IsEmpty() const;
-	virtual Manipulator *CreateManipulator() const;
+	bool IsEmpty() const;
+	void OtherMethod() const;
 };
 
-// Convert TextView's interface to conform to Shape's
+// Convert TextView's interface to conform to Shape's interface
 void TextShape::BoundingBox(
 		Point &bottomLeft, Point &topRight) const
 {
 	Coord bottom, left, width, height;
 	GetOrigin(bottom, left);
-	GetExtent(width, height);
-	bottomLeft = Point(bottom, left);
-	topRight = Point(bottom + height, left + width);
+	// ...
 };
 
 // Forward the request to the adpatee
@@ -73,7 +47,7 @@ bool TextShape::IsEmpty() const
 	return TextView::IsEmpty();
 }
 
-Manipulator *TextShape::CreateManipulator() const
+void TextShape::OtherMethod() const
 {
-	return new TextManipulator(this);
+	std::cout << "Method that not supported by adaptee" << std::endl;
 }
