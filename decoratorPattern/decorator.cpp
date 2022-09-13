@@ -1,7 +1,7 @@
 #include <iostream>
 #include "decorator.h"
 
-// Decorator's method body
+// Decorator
 Decorator::Decorator(VisualComponent *component)
 {
 	_component = component;
@@ -13,7 +13,7 @@ void Decorator::Draw()
 	_component->Draw();
 }
 
-// Concrete Decorator's method body
+// Concrete Decorator
 BorderDecorator::BorderDecorator(VisualComponent *component, int borderWidth) : Decorator(component)
 {
 	_width = borderWidth;
@@ -31,7 +31,7 @@ void BorderDecorator::DrawBorder(int width)
 	std::cout << "Drawing border with width " << width << std::endl;
 }
 
-// Concrete Decorator's method body
+// Concrete Decorator
 ScrollbarDecorator::ScrollbarDecorator(VisualComponent *component) : Decorator(component)
 {
 }
