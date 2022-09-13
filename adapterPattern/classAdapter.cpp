@@ -18,6 +18,7 @@ public:
 	explicit Shape();
 	virtual void BoundingBox(
 			Point &bottomLeft, Point &topRight) const;
+	virtual bool IsEmpty() const;
 	virtual void OtherMethod() const;
 };
 
