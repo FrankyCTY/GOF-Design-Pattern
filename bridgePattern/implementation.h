@@ -1,7 +1,7 @@
 #include "common.h"
 #include <iostream>
 
-// Implementation
+// ============= Implementation =============
 class WindowImp
 {
 public:
@@ -15,7 +15,7 @@ public:
 	virtual void DeviceBitmap(const char *, Coord, Coord) = 0;
 };
 
-// Concrete Implementation
+// ============= Concrete Implementation =============
 class XWindowImp : public WindowImp
 {
 public:
@@ -29,7 +29,7 @@ private:
 	GC _gc;
 };
 
-// Concrete Implementation
+// ============= Concrete Implementation =============
 class PMWindowImp : public WindowImp
 {
 public:
