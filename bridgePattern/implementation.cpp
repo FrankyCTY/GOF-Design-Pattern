@@ -1,15 +1,12 @@
-#include "common.h"
 #include "implementation.h"
 #include <iostream>
 
-void XWindowImp::DeviceRect(
-		Coord xO, Coord yO, Coord xl, Coord yl)
+void XWindowImp::DeviceRect()
 {
-	std::cout << "..." << std::endl;
+	std::cout << "XWindow implementation DeviceRec" << std::endl;
 }
 
-void PMWindowImp::DeviceRect(
-		Coord xO, Coord yO, Coord xl, Coord yl)
+void PMWindowImp::DeviceRect()
 {
-	std::cout << "..." << std::endl;
+	std::cout << "PMWindow implementation DeviceRec" << std::endl;
 }
