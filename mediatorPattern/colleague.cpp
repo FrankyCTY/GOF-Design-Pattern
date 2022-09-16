@@ -15,12 +15,14 @@ void Widget::SetMediator(DialogMediator *mediator)
 // ============= Concrete Colleague =============
 const char *ListBox::GetSelectedItemValue()
 {
-	return "item value";
+	std::cout << "Getting selected item value from list box" << std::endl;
+	return "selected item value";
 }
 
 // ============= Concrete Colleague =============
 void TextField::SetText(const char *text)
 {
+	std::cout << "Setting the text for the text field" << std::endl;
 	_text = text;
 }
 

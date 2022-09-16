@@ -1,3 +1,4 @@
+#include <iostream>
 #include "./mediator.h"
 
 // ============= Concrete Mediator =============
@@ -14,6 +15,8 @@ FontDialogMediator::FontDialogMediator(ListBox *listBox, TextField *textField, B
 
 void FontDialogMediator::Notify(Widget *changedWidget)
 {
+	std::cout << "============ NOTIFY ============" << std::endl;
+
 	if (changedWidget == _listBox)
 	{
 		const char *selectedListItemValue = _listBox->GetSelectedItemValue();
@@ -22,5 +25,6 @@ void FontDialogMediator::Notify(Widget *changedWidget)
 	else if (changedWidget == _submitButton)
 	{
 		// Apply font change and dismiss dialog
+		_submitButton->DoSomething();
 	}
 }
