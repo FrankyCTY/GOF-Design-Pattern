@@ -1,45 +1,79 @@
 #include <iostream>
 
-class Point
+class MimicStringClass
 {
 public:
-	Point(int lat, int lng);
-	static Point Zero;
-	int getLat() const
+	MimicStringClass()
 	{
-		return _lat;
+		std::cout << "other" << std::endl;
 	}
-
-private:
-	int _lat;
-	int _lng;
+	MimicStringClass(const MimicStringClass &rhs)
+	{
+		std::cout << "COPY other" << std::endl;
+	}
+	virtual ~MimicStringClass()
+	{
+		std::cout << "destructure other" << std::endl;
+	};
 };
 
-Point::Point(int lat, int lnt)
+class Person
 {
-	_lat = lat;
-	_lng = lnt;
-}
-Point Point::Zero = Point(0, 0);
+public:
+	Person()
+	{
+		std::cout << "person" << std::endl;
+	};
+	Person(const Person &rhs)
+	{
+		std::cout << "COPY person" << std::endl;
+		name = rhs.name;
+		address = rhs.address;
+	}
+	virtual ~Person()
+	{
+		std::cout << "destructure person" << std::endl;
+	};
 
-void display(const Point &point)
-{
-	std::cout << "asd " << point.getLat() << std::endl;
-}
+private:
+	std::string name;
+	std::string address;
+};
 
-int add10(int a)
+class Student : public Person
 {
-	a = 2;
-	std::cout << "parameter a is " << a << std::endl;
-	return a + 10;
+public:
+	Student()
+	{
+		std::cout << "student" << std::endl;
+	};
+	Student(const Student &rhs)
+	{
+		std::cout << "COPY student" << std::endl;
+		schoolName = rhs.schoolName;
+		schoolAddress = rhs.schoolAddress;
+	}
+	virtual ~Student()
+	{
+		std::cout << "destructure student" << std::endl;
+	};
+
+private:
+	std::string schoolName;
+	std::string schoolAddress;
+	// Used to demonstrate the timing/order of the constructor/destructor called for string class
+	MimicStringClass mimicString;
+};
+
+bool validateStudent(Student s)
+{
+	std::cout << "validate student" << std::endl;
+	return true;
 }
 
 int main()
 {
-	display(Point::Zero);
-	// int input = 5;
-	// int result = add10(input);
-	// std::cout << "result is " << result << std::endl;
-	// std::cout << "input is " << input << std::endl;
-	return 0;
+	Student plato;
+
+	bool result = validateStudent(plato);
 }
