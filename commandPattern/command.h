@@ -15,24 +15,21 @@ protected:
 	explicit Command();
 };
 
-class OpenCommand : public Command
-{
-public:
-	explicit OpenCommand(Application *);
-	void Execute();
-
-private:
-	char *PromptUserForDocName() const;
-
-private:
-	Application *_application;
-};
-
 class HelloCommand : public Command
 {
 public:
 	explicit HelloCommand();
 	void Execute();
+};
+
+class WorldCommand : public Command
+{
+public:
+	explicit WorldCommand(Receiver *);
+	void Execute();
+
+private:
+	Receiver *_receiver;
 };
 
 class MarcoCommand : public Command

@@ -1,16 +1,7 @@
 #pragma once
 
-class Application
+class Receiver
 {
 public:
-	void Add(Document *);
-};
-
-class Document
-{
-public:
-	explicit Document(char *docName);
-
-private:
-	char *_docName;
+	void ReceiverOperation();
 };

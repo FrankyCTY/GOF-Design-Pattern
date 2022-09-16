@@ -2,35 +2,20 @@
 #include "./command.h"
 #include "./receiver.h"
 
-OpenCommand::OpenCommand(Application *application)
-{
-	_application = application;
-}
-
-char *OpenCommand::PromptUserForDocName() const
-{
-	std::cout << "Which document do you want to open?" << std::endl;
-	return "fake doc name";
-}
-
-void OpenCommand::Execute()
-{
-	char *docName = PromptUserForDocName();
-
-	if (docName != 0)
-	{
-		Document *document = new Document(docName);
-		_application->Add(document);
-	}
-}
-
-HelloCommand::HelloCommand()
-{
-}
-
 void HelloCommand::Execute()
 {
 	std::cout << "Hello Command" << std::endl;
+}
+
+WorldCommand::WorldCommand(Receiver *receiver)
+{
+	_receiver = receiver;
+}
+
+void WorldCommand::Execute()
+{
+	std::cout << "World Command" << std::endl;
+	_receiver->ReceiverOperation();
 }
 
 void MarcoCommand::AddCommand(Command *command)

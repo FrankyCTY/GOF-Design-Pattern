@@ -1,12 +1,7 @@
 #include <iostream>
 #include "./receiver.h"
 
-void Application::Add(Document *doc)
+void Receiver::ReceiverOperation()
 {
-	std::cout << "Adding doc" << std::endl;
-}
-
-Document::Document(char *docName)
-{
-	_docName = docName;
+	std::cout << "Receiver doing something" << std::endl;
 }

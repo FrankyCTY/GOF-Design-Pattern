@@ -9,9 +9,9 @@ int main()
 	SubmitButton *submitBtn = new SubmitButton();
 
 	// Concrete command 1's Receiver
-	Application *application = new Application();
+	Receiver *application = new Receiver();
 	// Concrete command 1
-	Command *openCommand = new OpenCommand(application);
+	Command *openCommand = new WorldCommand(application);
 
 	// Concrete command 2
 	Command *helloCommand = new HelloCommand();

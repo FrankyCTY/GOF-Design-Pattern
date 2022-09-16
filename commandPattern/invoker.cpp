@@ -10,5 +10,8 @@ void SubmitButton::SetCommand(Command *command)
 void SubmitButton::Submit()
 {
 	std::cout << "Ready to submit" << std::endl;
-	_command->Execute();
+	if (_command != 0)
+	{
+		_command->Execute();
+	}
 }
