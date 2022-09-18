@@ -45,7 +45,8 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "list": "cpp"
+    "list": "cpp",
+    "__hash_table": "cpp"
   },
   "C_Cpp.errorSquiggles": "Enabled"
 }

@@ -1,6 +1,12 @@
 #include "./subject.h"
 #include "./observer.h"
 
+/**
+ * - Pull model observer pattern
+ * - Attach subject is done in observer constructor
+ * - Detach subject is done on observer method
+ */
+
 int main()
 {
 	Subject *subject = new Subject;
