@@ -1,6 +1,8 @@
 #include "./observer.h"
 #include "./subject.h"
 
+int Observer::static_number_ = 0;
+
 Observer::Observer(Subject &subject) : subject_(subject)
 {
 	this->subject_.Attach(this);
