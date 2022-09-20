@@ -25,6 +25,8 @@ void Subject::Notify()
 		(*iterator)->Update(message_);
 		++iterator;
 	}
+
+	delete *iterator;
 }
 
 void Subject::CreateMessage(std::string message = "Empty")

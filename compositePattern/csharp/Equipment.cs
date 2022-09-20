@@ -7,11 +7,11 @@ abstract class Equipment
 		_name = "Equipment";
 	}
 
-	public virtual void Add(Equipment component)
+	public virtual void Add(Equipment equipment)
 	{
 		throw new NotImplementedException();
 	}
-	public virtual void Remove(Equipment component)
+	public virtual void Remove(Equipment equipment)
 	{
 		throw new NotImplementedException();
 	}
