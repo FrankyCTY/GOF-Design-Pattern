@@ -1,79 +1,78 @@
 #include <iostream>
+#include <string>
 
-class MimicStringClass
+using namespace std;
+
+class Parent
 {
 public:
-	MimicStringClass()
+	Parent()
 	{
-		std::cout << "other" << std::endl;
-	}
-	MimicStringClass(const MimicStringClass &rhs)
+		cout << "Parent constructor" << endl;
+	};
+
+	Parent(const Parent &parent)
 	{
-		std::cout << "COPY other" << std::endl;
-	}
-	virtual ~MimicStringClass()
+		cout << "Parent Copy Constructor" << endl;
+	};
+
+	Parent &operator=(const Parent &rhs)
 	{
-		std::cout << "destructure other" << std::endl;
+		cout << "Parent Copy Assignment Operator" << endl;
+		return *this;
 	};
 };
 
-class Person
+class Child : public Parent
 {
 public:
-	Person()
+	Child(const string name) : _name(name)
 	{
-		std::cout << "person" << std::endl;
+		cout << "Child Constructor" << endl;
 	};
-	Person(const Person &rhs)
+
+	// Compiler will call default constructor but not calling parent copy constructor
+	// Because we are not explicit deciding which member function to call in member initialization list
+	Child(const Child &child)
 	{
-		std::cout << "COPY person" << std::endl;
-		name = rhs.name;
-		address = rhs.address;
+		cout << "Child Copy Constructor" << endl;
+		_name = child._name;
+	};
+
+	Child &operator=(const Child &rhs)
+	{
+		cout << "Child Copy Assignment Operator" << endl;
+		_name = rhs._name;
+		return *this;
+	};
+
+	~Child()
+	{
+		cout << "Child Destructor" << endl;
+	};
+
+	string GetName() const
+	{
+		return _name;
 	}
-	virtual ~Person()
-	{
-		std::cout << "destructure person" << std::endl;
-	};
 
 private:
-	std::string name;
-	std::string address;
+	string _name;
 };
 
-class Student : public Person
+string &work(string &str)
 {
-public:
-	Student()
-	{
-		std::cout << "student" << std::endl;
-	};
-	Student(const Student &rhs)
-	{
-		std::cout << "COPY student" << std::endl;
-		schoolName = rhs.schoolName;
-		schoolAddress = rhs.schoolAddress;
-	}
-	virtual ~Student()
-	{
-		std::cout << "destructure student" << std::endl;
-	};
-
-private:
-	std::string schoolName;
-	std::string schoolAddress;
-	// Used to demonstrate the timing/order of the constructor/destructor called for string class
-	MimicStringClass mimicString;
+	return str;
 };
-
-bool validateStudent(Student s)
-{
-	std::cout << "validate student" << std::endl;
-	return true;
-}
 
 int main()
 {
-	Student plato;
+	Child c1("c1");
+	Child c2("c2");
 
-	bool result = validateStudent(plato);
+	c2 = c1;
+
+	cout << c2.GetName() << endl;
+
+	return 0;
 }
