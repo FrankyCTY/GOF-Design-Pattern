@@ -65,14 +65,14 @@ string &work(string &str)
 	return str;
 };
 
+const int add(int a, int b) { return a + b; }
+
 int main()
 {
-	Child c1("c1");
-	Child c2("c2");
-
-	c2 = c1;
-
-	cout << c2.GetName() << endl;
-
+	int a, b;
+	cin >> a >> b;
+	int result = add(a, b);
+	result = 20;
+	cout << result << endl;
 	return 0;
-}
+};
