@@ -1,3 +1,4 @@
+// ============= Helper to create implementation =============
 static class ImplementationFactory
 {
 	public static WindowImp CreateImplementation()
