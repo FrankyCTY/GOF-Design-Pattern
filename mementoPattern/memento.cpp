@@ -1,7 +1,7 @@
 #include "./memento.h"
 #include <string>
 
-string Memento::GetSnapshot() const
+string Memento::GetState() const
 {
 	return _state;
 }

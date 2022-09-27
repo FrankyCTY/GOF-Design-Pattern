@@ -35,7 +35,7 @@ void CareTaker::PrintSnapshotsInfo() const
 
 	for (it = _snapshots->begin(); it < _snapshots->end(); it++)
 	{
-		cout << counter << ". " << (*it)->GetSnapshot() << endl;
+		cout << counter << ". " << (*it)->GetState() << endl;
 		counter++;
 	}
 }

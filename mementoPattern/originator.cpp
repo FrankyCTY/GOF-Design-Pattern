@@ -1,5 +1,5 @@
 #include "./originator.h"
-#include "./mediator.h"
+#include "./memento.h"
 
 Memento *Originator::CreateSnapshot()
 {
@@ -7,10 +7,10 @@ Memento *Originator::CreateSnapshot()
 	return new Memento(_state);
 }
 
-void Originator::LoadSnapshot(Memento *stateSnapshot)
+void Originator::LoadSnapshot(Memento *snapshot)
 {
 	printf("Originator: Load snapshot\n");
-	_state = stateSnapshot->GetSnapshot();
+	_state = snapshot->GetState();
 }
 
 void Originator::BusinessOperation()

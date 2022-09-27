@@ -8,7 +8,7 @@ class Memento
 public:
 	Memento(string state) : _state(state){};
 
-	string GetSnapshot() const;
+	string GetState() const;
 
 private:
 	string _state;
