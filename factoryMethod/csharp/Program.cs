@@ -1,6 +1,4 @@
-using System;
-
-namespace RefactoringGuru.DesignPatterns.FactoryMethod.Conceptual
+namespace FactoryMethodPattern
 {
 	class Program
 	{
