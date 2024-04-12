@@ -18,7 +18,7 @@
 }
 
 
-// // ============== Output ==============
+// ============== Output ==============
 // Installed chassis
 // Total price = 2000, Total power = 1000
 
